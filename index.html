@@ -12,6 +12,7 @@
     <body>
         <div class="header">
             <h1>Detecting Emotion from People and Scenery</h1>
+            <p>Logan Preston, Neal Desai, Nikhil Nigam</p>
             <button>
                 <a class="button-link" href="https://github.com/nbdesai1992/HumanEmotionRecognition">View on Github</a>
             </button>
@@ -96,18 +97,24 @@
         <script src="" async defer></script>
     </body>
     <style>
+        :root{
+            --accentColor: #2C3333; 
+            --backgroundColor: #EEEEEE;
+        }
+
         body{
             width:auto;
             font-family: 'Verdana','Geneva','Tacoma','sans-serif';
             line-height: 1.5;
-            background-color: #f3f3f3;
+            background-color: var(--backgroundColor);
             text-align: center;
+            color: var(--accentColor);
         }
 
         button {
-                background-color: #000000;
+                background-color: var(--accentColor);
                 border: none;
-                color: #f3f3f3;
+                color: var(--backgroundColor);
                 padding: 10px 20px;
                 text-align: center;
                 text-decoration: none;
@@ -124,7 +131,7 @@
         }
 
         .button-link{
-            color:#f3f3f3
+            color:var(--backgroundColor)
         }
 
         .info{
