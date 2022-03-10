@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--can use this instead of including styling at bottom.-->
+        <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+    </head>
+    <body>
+        <div class="header">
+            <h1>Detecting Emotion from People and Scenery</h1>
+            <button>
+                <a class="button-link" href="https://github.com/nbdesai1992/HumanEmotionRecognition">View on Github</a>
+            </button>
+        </div>
+        <div class="info">
+            <h2>Introduction</h2>
+            <p>
+                The motivation behind this proposed project is to investigate approaches for emotion detection and recognition. 
+                This builds on existing work of facial recognition and tracking to predict what the user is likely feeling 
+                based on image-specific context. Existing work often looks to face expressions, body language, and 
+                scene context. These varied factors combined with individual variation in how people express emotion makes 
+                this a challenging but useful problem to solve. Specifically, there is social value in having a good
+                solution to the emotion recognition problem. The use of AI-infused systems is growing in daily life and generally
+                is expected to continue to do so. Human AI interaction guidelines state that AI infused systems should have
+                "socially appropriate behaviors" [2] or "match relevant social norms" [1], showing that being aware of social
+                expectations is helpful. Detecting user emotions can inform the AI system on appropriate social expectations
+                and also potentially detect emotional anomalies. This could be used to make artificial intelligence applications
+                more socially aware, friendly, or provide better support to humans. For example, identifying if a user is
+                frustrated may prompt the system to check if the user has a question, provide supportive reminders, or reduce the
+                amount of notifications it sends to the user. In general, we expect identifying emotions accurately will enhance
+                interactions between AI infused systems and their users.
+            </p>
+            <h2>State of the Art</h2>
+            <p>
+                This problem is especially thought-provoking because we already know computers can identify faces, 
+                track objects paths, and other related tasks. However, thework on emotion detection is not as well-established.
+                Classical emotion recognition techniques take a more localized approach by simply focusing on the prominent
+                facial features. These techniques have been now bettered, if not matched, by deep learning algorithms such
+                as CNNs or LSTMs [3]. Thus, prior work reviews emotions by looking at the faces alone rather than 
+                considering body language and scene context. Some work adds in context from the surrounding the scene [5] but efforts 
+                in this area seem minimal and don't focus on quantifying the potential improvement of considering scene context vs 
+                just faces. We are interested in seeing how important the overall scene context is for the accuracy of the 
+                model or ifthe face / body language provides the vast majority ofthe data needed for accurate classification. 
+                Apart from the further exploration by those who initially included the scene for analysis [4], another method 
+                adopted by researchers involved masking the face from the image and treating facial features and the scene separately
+                and adopting ensemble learning techniques for their prediction [6]. These findings act as a starting point for a 
+                more nuanced technique which can be developed and researched further.
+            </p>
+            <h2>Proposed Solution</h2>
+            <p>
+                Our solution will start by identifying people from the image, which will require segmenting the image as
+                a prerequisite. After the humans in each image are identified, we can look to them for potential clues into the 
+                emotions using their faces and/or body language. We will further investigate the impact of incorporating the full 
+                body and scene context for our emotion recognitionas opposed to just isolated faces. We will evaluate the performance 
+                of solutions using only expressions and body language and compare those results to the performance of 
+                solutions that also include information on the scene. This will identify the impact of the scene information and 
+                determine how valuable of information it is to analyze compared to the individuals in a scene. To train our model, 
+                we plan to use the Emotic dataset. The dataset contains images of several people in real environments. 
+                Each person is appropriately annotated with their emotions. The dataset offers both a discrete analysis 
+                using 26 distinct emotion categories as well as a continuous dataset that seeks to quantify each emotion 
+                into three dimensions, namely valence, arousal, and dominance [4]. We will incorporate both the discrete and 
+                continuous cases in our analysis. We plan on initially using Convolutional Neural Networks to accomplish this 
+                classification and will explore other deep learning model architectures that may improve upon the baseline CNN 
+                approach.
+            </p>
+            <h3>References</h3>
+                <p>
+                    [1] S. Amershi, D. Weld, M. Vorvoreanu, A. Fourney,B. Nushi, P. Collisson, J. Suh, S. Iqbal, 
+                    P. Bennett,K. Inkpen, J. Teevan, R. Kikin-Gil, and E. Horvitz. Guidelines for human-ai interaction. 
+                    In CHI 2019.ACM, May 2019. CHI 2019 Honorable Mention Award.
+                </p>
+                <p>
+                    [2] E. Horvitz. Principles of mixed-initiative user interfaces. In Proceedings of CHI '99, ACM SIG CHI 
+                    Conference on Human Factors in Computing Sys-tems, Pittsburgh, PA, ACM Press., pages 159-166,May 1999.
+                </p>
+                <p>
+                    [3] B. C. Ko. A brief review of facial emotion recogni-tion based on visual information. volume 18, 2018.
+                </p> 
+                <p>
+                    [4] R. Kosti, J. Alvarez, A. Recasens, and A. Lapedriza.Context based emotion recognition using emotic dataset.
+                    IEEE Transactions on Pattern Analysis andMachine Intelligence, 2019.
+                </p>
+                <p>
+                    [5] R. Kosti, J. M. Alvarez, A. Recasens, andA. Lapedriza. Emotion recognition in context. In The IEEE 
+                    Conference on Computer Vision and Pat-tern Recognition (CVPR), 2017.
+                </p>
+                <p>
+                    [6] J. Lee, S. Kim, S. Kim, J. Park, and K. Sohn.Context-aware emotion recognition networks.
+                    In Proceedings of the IEEE/CVF International Confer-ence on Computer Vision (ICCV), October 2019. 
+                </p>
+        </div>
+        <script src="" async defer></script>
+    </body>
+    <style>
+        body{
+            width:auto;
+            font-family: 'Verdana','Geneva','Tacoma','sans-serif';
+            line-height: 1.5;
+            background-color: #f3f3f3;
+            text-align: center;
+        }
+
+        button {
+                background-color: #000000;
+                border: none;
+                color: #f3f3f3;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline;
+                font-size: 16px;
+                border-radius: 10px;
+                margin: 10px;
+                opacity: 1;
+                transition: 0.2s ease-in opacity;
+              }
+
+        a{
+            text-decoration: none;
+        }
+
+        .button-link{
+            color:#f3f3f3
+        }
+
+        .info{
+            text-align: left;
+            margin: 0px 250px;
+        }
+
+    </style>
+</html>
