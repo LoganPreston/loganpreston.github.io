@@ -1,0 +1,41 @@
+:root{
+    --accentColor: #2C3333; 
+    --backgroundColor: #EEEEEE;
+}
+
+body{
+    width:auto;
+    font-family: 'Verdana','Geneva','Tacoma','sans-serif';
+    line-height: 1.5;
+    background-color: var(--backgroundColor);
+    text-align: center;
+    color: var(--accentColor);
+}
+
+button {
+        background-color: var(--accentColor);
+        border: none;
+        color: var(--backgroundColor);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline;
+        font-size: 16px;
+        border-radius: 10px;
+        margin: 10px;
+        opacity: 1;
+        transition: 0.2s ease-in opacity;
+      }
+
+a{
+    text-decoration: none;
+}
+
+.button-link{
+    color:var(--backgroundColor)
+}
+
+.info{
+    text-align: left;
+    margin: 0px 250px;
+}
