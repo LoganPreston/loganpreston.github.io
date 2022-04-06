@@ -11,13 +11,24 @@
     <div class="header" id="header">
       <h1>Detecting Emotion from People and Scenery</h1>
       <p>Logan Preston, Neal Desai, Nikhil Nigam</p>
-      <button>
+      <button class="btn-large">
         <a
           class="button-link"
           href="https://github.com/nbdesai1992/HumanEmotionRecognition"
           >View on Github</a
         >
       </button>
+      <button class="btn-large">
+        <a class="button-link" href="public/pdf/CS766_Proposal_Team23_DesaiNigamPreston.pdf"
+          >Link to Proposal</a
+        >
+      </button>
+      <button class="btn-large">
+        <a class="button-link" href="public/pdf/CS766_MidtermReport_Team23_DesaiNigamPreston.pdf"
+          >Link to Midterm Report</a
+        >
+      </button>
+      </div>
     </div>
     <div class="buttonBlock">
       <nav>
@@ -36,114 +47,250 @@
         >
           Proposed Solution
         </button>
+        <button onclick="scrollToId('architecture')" class="navigation button">
+          Architecture
+        </button>
+        <button onclick="scrollToId('results')" class="navigation button">
+          Results
+        </button>
+        <button onclick="scrollToId('next')" class="navigation button">
+          Next Steps
+        </button>
       </nav>
       <div class="info">
-        <h2 id="introduction">Introduction</h2>
-        <p>
-          The motivation behind this proposed project is to investigate
-          approaches for emotion detection and recognition. This builds on
-          existing work of facial recognition and tracking to predict what the
-          user is likely feeling based on image-specific context. Existing work
-          often looks to face expressions, body language, and scene context.
-          These varied factors combined with individual variation in how people
-          express emotion makes this a challenging but useful problem to solve.
-          Specifically, there is social value in having a good solution to the
-          emotion recognition problem. The use of AI-infused systems is growing
-          in daily life and generally is expected to continue to do so. Human AI
-          interaction guidelines state that AI infused systems should have
-          "socially appropriate behaviors" [2] or "match relevant social norms"
-          [1], showing that being aware of social expectations is helpful.
-          Detecting user emotions can inform the AI system on appropriate social
-          expectations and also potentially detect emotional anomalies. This
-          could be used to make artificial intelligence applications more
-          socially aware, friendly, or provide better support to humans. For
-          example, identifying if a user is frustrated may prompt the system to
-          check if the user has a question, provide supportive reminders, or
-          reduce the amount of notifications it sends to the user. In general,
-          we expect identifying emotions accurately will enhance interactions
-          between AI infused systems and their users.
-        </p>
-        <h2 id="stateOfTheArt">State of the Art</h2>
-        <p>
-          This problem is especially thought-provoking because we already know
-          computers can identify faces, track objects paths, and other related
-          tasks. However, thework on emotion detection is not as
-          well-established. Classical emotion recognition techniques take a more
-          localized approach by simply focusing on the prominent facial
-          features. These techniques have been now bettered, if not matched, by
-          deep learning algorithms such as CNNs or LSTMs [3]. Thus, prior work
-          reviews emotions by looking at the faces alone rather than considering
-          body language and scene context. Some work adds in context from the
-          surrounding the scene [5] but efforts in this area seem minimal and
-          don't focus on quantifying the potential improvement of considering
-          scene context vs just faces. We are interested in seeing how important
-          the overall scene context is for the accuracy of the model or if the
-          face or body language provides the vast majority ofthe data needed for
-          accurate classification. Apart from the further exploration by those
-          who initially included the scene for analysis [4], another method
-          adopted by researchers involved masking the face from the image and
-          treating facial features and the scene separately and adopting
-          ensemble learning techniques for their prediction [6]. These findings
-          act as a starting point for a more nuanced technique which can be
-          developed and researched further.
-        </p>
-        <h2 id="proposedSolution">Proposed Solution</h2>
-        <p>
-          Our solution will start by identifying people from the image, which
-          will require segmenting the image as a prerequisite. After the humans
-          in each image are identified, we can look to them for potential clues
-          into the emotions using their faces and/or body language. We will
-          further investigate the impact of incorporating the full body and
-          scene context for our emotion recognitionas opposed to just isolated
-          faces. We will evaluate the performance of solutions using only
-          expressions and body language and compare those results to the
-          performance of solutions that also include information on the scene.
-          This will identify the impact of the scene information and determine
-          how valuable of information it is to analyze compared to the
-          individuals in a scene. To train our model, we plan to use the Emotic
-          dataset. The dataset contains images of several people in real
-          environments. Each person is appropriately annotated with their
-          emotions. The dataset offers both a discrete analysis using 26
-          distinct emotion categories as well as a continuous dataset that seeks
-          to quantify each emotion into three dimensions, namely valence,
-          arousal, and dominance [4]. We will incorporate both the discrete and
-          continuous cases in our analysis. We plan on initially using
-          Convolutional Neural Networks to accomplish this classification and
-          will explore other deep learning model architectures that may improve
-          upon the baseline CNN approach.
-        </p>
-        <h3>References</h3>
-        <p>
-          [1] S. Amershi, D. Weld, M. Vorvoreanu, A. Fourney,B. Nushi, P.
-          Collisson, J. Suh, S. Iqbal, P. Bennett,K. Inkpen, J. Teevan, R.
-          Kikin-Gil, and E. Horvitz. Guidelines for human-ai interaction. In CHI
-          2019.ACM, May 2019. CHI 2019 Honorable Mention Award.
-        </p>
-        <p>
-          [2] E. Horvitz. Principles of mixed-initiative user interfaces. In
-          Proceedings of CHI '99, ACM SIG CHI Conference on Human Factors in
-          Computing Sys-tems, Pittsburgh, PA, ACM Press., pages 159-166,May
-          1999.
-        </p>
-        <p>
-          [3] B. C. Ko. A brief review of facial emotion recogni-tion based on
-          visual information. volume 18, 2018.
-        </p>
-        <p>
-          [4] R. Kosti, J. Alvarez, A. Recasens, and A. Lapedriza.Context based
-          emotion recognition using emotic dataset. IEEE Transactions on Pattern
-          Analysis andMachine Intelligence, 2019.
-        </p>
-        <p>
-          [5] R. Kosti, J. M. Alvarez, A. Recasens, andA. Lapedriza. Emotion
-          recognition in context. In The IEEE Conference on Computer Vision and
-          Pat-tern Recognition (CVPR), 2017.
-        </p>
-        <p>
-          [6] J. Lee, S. Kim, S. Kim, J. Park, and K. Sohn.Context-aware emotion
-          recognition networks. In Proceedings of the IEEE/CVF International
-          Confer-ence on Computer Vision (ICCV), October 2019.
-        </p>
+        <div class="section">
+          <h2 id="introduction">Introduction</h2>
+          <p>
+            The motivation for this project is to investigate approaches for
+            emotion detection and recognition. This builds on existing work of
+            facial recognition and tracking to predict what the user is likely
+            feeling based based on image-specific context. Existing work often
+            looks to face expressions, body language, and scene context. These
+            factors combined with individual variation in how people express
+            emotion makes this a challenging but useful problem to solve.
+            Specifically, there is social value in having a good solution to the
+            emotion recognition problem. The use of AI-infused systems is
+            growing in daily life and generally is expected to continue that
+            trend. Human AI interaction guidelines state that AI infused systems
+            should have "socially appropriate behaviors" [2] or "match relevant
+            social norms" [1], showing that being aware of social expectations
+            is helpful. Detecting user emotions can inform the AI system on
+            appropriate social expectations and also potentially detect
+            emotional anomalies. This could be used to make artificial
+            intelligence applications more socially aware, friendly, or provide
+            better support to humans. For example, identifying if a user is
+            frustrated may prompt the system to check if the user has a
+            question, provide supportive reminders, or reduce the amount of
+            notifications it sends to the user. In general, we expect
+            identifying emotions accurately will enhance interactions between AI
+            infused systems and their users.
+          </p>
+        </div>
+        <div class="section">
+          <h2 id="stateOfTheArt">State of the Art</h2>
+          <p>
+            This problem is especially thought-provoking because we already know
+            computers can identify faces, track objects paths, and other related
+            tasks. However, thework on emotion detection is not as
+            well-established. Classical emotion recognition techniques take a
+            more localized approach by simply focusing on the prominent facial
+            features. These techniques have been now bettered, if not matched,
+            by deep learning algorithms such as CNNs or LSTMs [3]. Thus, prior
+            work reviews emotions by looking at the faces alone rather than
+            considering body language and scene context. Some work adds in
+            context from the surrounding the scene [5] but efforts in this area
+            seem minimal and don't focus on quantifying the potential
+            improvement of considering scene context vs just faces. We are
+            interested in seeing how important the overall scene context is for
+            the accuracy of the model or if the face or body language provides
+            the vast majority ofthe data needed for accurate classification.
+            Apart from the further exploration by those who initially included
+            the scene for analysis [4], another method adopted by researchers
+            involved masking the face from the image and treating facial
+            features and the scene separately and adopting ensemble learning
+            techniques for their prediction [6]. These findings act as a
+            starting point for a more nuanced technique which can be developed
+            and researched further.
+          </p>
+        </div>
+        <div class="section">
+          <h2 id="proposedSolution">Proposed Solution</h2>
+          <p>
+            Our solution will start by identifying people from the image, which
+            will require segmenting the image as a prerequisite. After the
+            humans in each image are identified, we can look to them for
+            potential clues into the emotions using their faces and/or body
+            language. We will further investigate the impact of incorporating
+            the full body and scene context for our emotion recognitionas
+            opposed to just isolated faces. We will evaluate the performance of
+            solutions using only expressions and body language and compare those
+            results to the performance of solutions that also include
+            information on the scene. This will identify the impact of the scene
+            information and determine how valuable of information it is to
+            analyze compared to the individuals in a scene. To train our model,
+            we plan to use the Emotic dataset. The dataset contains images of
+            several people in real environments. Each person is appropriately
+            annotated with their emotions. The dataset offers both a discrete
+            analysis using 26 distinct emotion categories as well as a
+            continuous dataset that seeks to quantify each emotion into three
+            dimensions, namely valence, arousal, and dominance [4]. We will
+            incorporate both the discrete and continuous cases in our analysis.
+            We plan on initially using Convolutional Neural Networks to
+            accomplish this classification and will explore other deep learning
+            model architectures that may improve upon the baseline CNN approach.
+          </p>
+        </div>
+        <div class="section">
+          <h2 id="architecture">Architecture and Expected Results</h2>
+          <p>
+            The baseline model consists of 3 primary components which drive the
+            classification. The first component takes the region of the image
+            comprising the person whose feelings are to be estimated and
+            extracts its most relevant features. The second component takes as
+            input the entire image and extracts global features for providing
+            the necessary contextual support. Finally, the third component is a
+            fusion network that takes as input the image and body features and
+            estimates the discrete categories and the continuous dimensions. A
+            high level overview of the architecture can be seen below for the
+            body and scene split.
+          </p>
+          <figure>
+            <img
+              src="public/img/Baseline Model pipeline.jpg"
+              alt="img of baseline architecture"
+            />
+            <figcaption>Architecture of the Model</figcaption>
+          </figure>
+
+          <p>
+            Given limited computational resources, we have resorted to using the
+            popular Resnet-18 architecture for the first two components. The
+            feature extractors are initialized using pre-trained models from
+            large scale datas ets such as ImageNet and Places. ImageNet consists
+            of a range of objects (including people), so incorporating that will
+            improve our ability to learn the region of significance for a target
+            person in the image. Places is a data set specifically created for
+            high level visual understanding tasks such as recognizing scene
+            categories. Pre-training the image feature extraction model using
+            this data set ensures providing global (high level) contextual
+            support.
+          </p>
+          <p>
+            By the end of this project we expect to have a contribution amount
+            for the scene, the body, and the face based on the weights for each
+            component. Calculating the contribution by basing it on the weights
+            is a naive approach, but we expect to see some trend, and may update
+            this in the final proposal if we identify a less naive approach. We
+            will also consider metrics as part of our train / test split which
+            quantify the classification error (in the discrete case) or
+            mean-squared-error (in the continuous case) to gain an understanding
+            of how the actual task would be impacted by the difference in
+            weights.
+          </p>
+        </div>
+        <div class="section">
+          <h2 id="results">Current Results</h2>
+          <p>
+            The figures below are the training loss for the original model and
+            our trained model, showing that our training closely matches the
+            original implementation.
+          </p>
+          <figure>
+            <img
+              src="public/img/original result.png"
+              alt="Original Data"
+              class="smallImg"
+            />
+            <figcaption>Original Data</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="public/img/Replicated Results.png"
+              alt="Our Data"
+              class="smallImg"
+            />
+            <figcaption>Our Data</figcaption>
+          </figure>
+        </div>
+        <div class="section">
+          <h2 id="next">Next Steps</h2>
+          <p>
+            We found a number of helpful data elements in our data source such
+            as the coordinates of the box that surround the portion of the image
+            that's being evaluated. An example of an image can be seen below,
+            followed by the same image with the bounding box. This way we can
+            identify which person is matched to each emotion in the data set for
+            the model. This bounding box annotations mean we don't implement a
+            custom computer vision algorithm to separate out the individual in
+            the image at this point. We only feed the separate parts of the
+            image to the machine learning algorithms. We expect to add more
+            discrete computer vision functionality to identify the locations of
+            the faces, such as utilizing Haar feature detection, for the final
+            report. We will account for these bounding boxes that are given by
+            the data set to ensure we have the correct face in the image to
+            match with the emotion from the data set.
+          </p>
+          <p>
+            Once we have the faces separated out, we can create another stream
+            in the architecture to process faces, and fuse it with the existing
+            two. This will let us evaluate the weights to get a percent
+            contribution for each part of the image (face, person, and scene) in
+            the determination of the emotion.
+          </p>
+          <figure>
+            <img
+              src="public/img/complete_img.png"
+              alt="source image"
+              class="smallImg"
+            />
+            <figcaption>An example image from the data source</figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="public/img/Bounding Box demo.png"
+              alt="source image with box"
+              class="smallImg"
+            />
+            <figcaption>
+              The example image with a bounding box around it
+            </figcaption>
+          </figure>
+        </div>
+        <div class="section">
+          <h3>References</h3>
+          <p>
+            [1] S. Amershi, D. Weld, M. Vorvoreanu, A. Fourney,B. Nushi, P.
+            Collisson, J. Suh, S. Iqbal, P. Bennett,K. Inkpen, J. Teevan, R.
+            Kikin-Gil, and E. Horvitz. Guidelines for human-ai interaction. In
+            CHI 2019.ACM, May 2019. CHI 2019 Honorable Mention Award.
+          </p>
+          <p>
+            [2] E. Horvitz. Principles of mixed-initiative user interfaces. In
+            Proceedings of CHI '99, ACM SIG CHI Conference on Human Factors in
+            Computing Sys-tems, Pittsburgh, PA, ACM Press., pages 159-166,May
+            1999.
+          </p>
+          <p>
+            [3] B. C. Ko. A brief review of facial emotion recogni-tion based on
+            visual information. volume 18, 2018.
+          </p>
+          <p>
+            [4] R. Kosti, J. Alvarez, A. Recasens, and A. Lapedriza.Context
+            based emotion recognition using emotic dataset. IEEE Transactions on
+            Pattern Analysis andMachine Intelligence, 2019.
+          </p>
+          <p>
+            [5] R. Kosti, J. M. Alvarez, A. Recasens, andA. Lapedriza. Emotion
+            recognition in context. In The IEEE Conference on Computer Vision
+            and Pat-tern Recognition (CVPR), 2017.
+          </p>
+          <p>
+            [6] J. Lee, S. Kim, S. Kim, J. Park, and K. Sohn.Context-aware
+            emotion recognition networks. In Proceedings of the IEEE/CVF
+            International Confer-ence on Computer Vision (ICCV), October 2019.
+          </p>
+        </div>
       </div>
 
       <footer>

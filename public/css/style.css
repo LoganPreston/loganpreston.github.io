@@ -35,6 +35,10 @@ a{
     text-decoration: none;
 }
 
+.btn-large{
+    width: 12%;
+}
+
 nav {
     float: left;
     position: fixed;
@@ -42,6 +46,14 @@ nav {
     background: var(--backgroundColor);
     height: 100%;
     width: 10%;
+}
+
+figure{
+    text-align: center;
+}
+
+.smallImg {
+    width: 25%;
 }
 
 .button-link{
@@ -55,4 +67,8 @@ nav {
 
 .navigation{
     width: 90%;
+}
+
+.links{
+    display: inline-block;
 }
