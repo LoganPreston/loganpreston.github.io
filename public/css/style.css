@@ -52,6 +52,16 @@ figure{
     text-align: center;
 }
 
+.imgPair {
+    display: inline-block;
+    width: 40%;
+    padding: 10px;
+}
+
+.fitImgToContraint{
+    width:100%
+}
+
 .smallImg {
     width: 25%;
 }

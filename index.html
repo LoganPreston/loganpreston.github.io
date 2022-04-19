@@ -19,16 +19,19 @@
         >
       </button>
       <button class="btn-large">
-        <a class="button-link" href="public/pdf/CS766_Proposal_Team23_DesaiNigamPreston.pdf"
+        <a
+          class="button-link"
+          href="public/pdf/CS766_Proposal_Team23_DesaiNigamPreston.pdf"
           >Link to Proposal</a
         >
       </button>
       <button class="btn-large">
-        <a class="button-link" href="public/pdf/CS766_MidtermReport_Team23_DesaiNigamPreston.pdf"
+        <a
+          class="button-link"
+          href="public/pdf/CS766_MidtermReport_Team23_DesaiNigamPreston.pdf"
           >Link to Midterm Report</a
         >
       </button>
-      </div>
     </div>
     <div class="buttonBlock">
       <nav>
@@ -53,8 +56,14 @@
         <button onclick="scrollToId('results')" class="navigation button">
           Results
         </button>
-        <button onclick="scrollToId('next')" class="navigation button">
-          Next Steps
+        <button
+          onclick="scrollToId('personDetection')"
+          class="navigation button"
+        >
+          Person Detection
+        </button>
+        <button onclick="scrollToId('faceDetection')" class="navigation button">
+          Face Detection
         </button>
       </nav>
       <div class="info">
@@ -114,34 +123,30 @@
           </p>
         </div>
         <div class="section">
-          <h2 id="proposedSolution">Proposed Solution</h2>
+          <h2 id="proposedSolution">Solution</h2>
           <p>
-            Our solution will start by identifying people from the image, which
-            will require segmenting the image as a prerequisite. After the
-            humans in each image are identified, we can look to them for
-            potential clues into the emotions using their faces and/or body
-            language. We will further investigate the impact of incorporating
-            the full body and scene context for our emotion recognitionas
-            opposed to just isolated faces. We will evaluate the performance of
-            solutions using only expressions and body language and compare those
-            results to the performance of solutions that also include
-            information on the scene. This will identify the impact of the scene
-            information and determine how valuable of information it is to
+            Our solution identifies people from the image, which is provided by
+            a bounding box in the data set, and their faces, which is found by
+            utilizing Haar features. After the humans in each image are
+            identified, we can look to them for potential clues into the
+            emotions using their faces and body language. We investigate the
+            impact of the body, the scene, and the face on the determination of
+            the emotion from the model. This will identify the impact of the
+            scene information and determine how valuable of information it is to
             analyze compared to the individuals in a scene. To train our model,
-            we plan to use the Emotic dataset. The dataset contains images of
-            several people in real environments. Each person is appropriately
-            annotated with their emotions. The dataset offers both a discrete
-            analysis using 26 distinct emotion categories as well as a
-            continuous dataset that seeks to quantify each emotion into three
-            dimensions, namely valence, arousal, and dominance [4]. We will
-            incorporate both the discrete and continuous cases in our analysis.
-            We plan on initially using Convolutional Neural Networks to
-            accomplish this classification and will explore other deep learning
-            model architectures that may improve upon the baseline CNN approach.
+            we used the Emotic dataset. The dataset contains images of people in
+            real environments and each person is appropriately annotated with
+            their emotions. The dataset offers both a discrete analysis using 26
+            distinct emotion categories as well as a continuous dataset that
+            seeks to quantify each emotion into three dimensions, namely
+            valence, arousal, and dominance [4]. We did have issues with getting
+            faces from many of the images, difficulties for this are described
+            below. We use a Convolutional Neural Network to accomplish our
+            classification, described in Architecture below.
           </p>
         </div>
         <div class="section">
-          <h2 id="architecture">Architecture and Expected Results</h2>
+          <h2 id="architecture">Architecture and Design</h2>
           <p>
             The baseline model consists of 3 primary components which drive the
             classification. The first component takes the region of the image
@@ -189,31 +194,23 @@
           </p>
         </div>
         <div class="section">
-          <h2 id="results">Current Results</h2>
+          <h2 id="results">Results</h2>
           <p>
             The figures below are the training loss for the original model and
             our trained model, showing that our training closely matches the
             original implementation.
           </p>
-          <figure>
-            <img
-              src="public/img/original result.png"
-              alt="Original Data"
-              class="smallImg"
-            />
+          <figure class="imgPair">
+            <img src="public/img/original result.png" alt="Original Data" />
             <figcaption>Original Data</figcaption>
           </figure>
-          <figure>
-            <img
-              src="public/img/Replicated Results.png"
-              alt="Our Data"
-              class="smallImg"
-            />
+          <figure class="imgPair">
+            <img src="public/img/Replicated Results.png" alt="Our Data" />
             <figcaption>Our Data</figcaption>
           </figure>
         </div>
         <div class="section">
-          <h2 id="next">Next Steps</h2>
+          <h2 id="personDetection">Person Detection</h2>
           <p>
             We found a number of helpful data elements in our data source such
             as the coordinates of the box that surround the portion of the image
@@ -223,37 +220,135 @@
             the model. This bounding box annotations mean we don't implement a
             custom computer vision algorithm to separate out the individual in
             the image at this point. We only feed the separate parts of the
-            image to the machine learning algorithms. We expect to add more
-            discrete computer vision functionality to identify the locations of
-            the faces, such as utilizing Haar feature detection, for the final
-            report. We will account for these bounding boxes that are given by
-            the data set to ensure we have the correct face in the image to
-            match with the emotion from the data set.
+            image to the machine learning algorithms. We have added more
+            computer vision functionality to identify faces, described below.
           </p>
-          <p>
-            Once we have the faces separated out, we can create another stream
-            in the architecture to process faces, and fuse it with the existing
-            two. This will let us evaluate the weights to get a percent
-            contribution for each part of the image (face, person, and scene) in
-            the determination of the emotion.
-          </p>
-          <figure>
+          <figure class="imgPair">
             <img
               src="public/img/complete_img.png"
               alt="source image"
-              class="smallImg"
+              class="fitImgToContainer"
             />
             <figcaption>An example image from the data source</figcaption>
           </figure>
 
-          <figure>
+          <figure class="imgPair">
             <img
               src="public/img/Bounding Box demo.png"
               alt="source image with box"
-              class="smallImg"
+              class="fitImgToContainer"
             />
             <figcaption>
               The example image with a bounding box around it
+            </figcaption>
+          </figure>
+        </div>
+        <div class="section">
+          <h2 id="faceDetection">Face Detection</h2>
+          <p>
+            We use Haar features to detect faces in the images. With the
+            bounding boxes for the person, described above, we can ensure we
+            detect faces that are attached to a person. We also limit face
+            detection to the top half of the image, this is a heuristic we found
+            success with because the Haar features would sometimes identify a
+            face in the grass within a bounding box. Using this heuristic, we
+            removed a lot of false positives. With the faces separated out, we
+            created another stream in the architecture to process them in
+            addition to the pose and scene information. We fuse the three
+            streams together and are able to get the weights out for each
+            contribution and can calculate a naive percentage contribution for
+            each component.
+          </p>
+          <p>
+            Here are some images to demonstrate success and difficulties with
+            face detection
+          </p>
+          <figure class="imgPair">
+            <img
+              src="public/img/facial_detection_man.png"
+              alt="source image"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              Here is an example face from the dataset, with a clear face
+            </figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/facial_detection_man_bounding_box.png"
+              alt="source image with box"
+              class="fitImgToContainer"
+            />
+            <figcaption>The example with the detected face</figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/child_umbrella.png"
+              alt="source image"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              Another example with a clear smiling face, this one is more
+              straight on
+            </figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/child_umbrella_box.png"
+              alt="source image with box"
+              class="fitImgToContainer"
+            />
+            <figcaption>The example with the detected face</figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/facial_detection_wedding.png"
+              alt="source image"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              Here is an example face from the dataset, multiple faces at
+              different angles
+            </figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/facial_detection_wedding_box.png"
+              alt="source image with box"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              The detected face is the face that's straight on. Angled faces
+              aren't processed
+            </figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/child_and_dog.png"
+              alt="source image with box"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              This child's face is not detected due to the angle
+            </figcaption>
+          </figure>
+
+          <figure class="imgPair">
+            <img
+              src="public/img/gaming_guys.png"
+              alt="source image with box"
+              class="fitImgToContainer"
+            />
+            <figcaption>
+              No faces are detected in this image because of the angle (person
+              on the left) and partial covering of the face (person on the
+              right)
             </figcaption>
           </figure>
         </div>
