@@ -161,8 +161,9 @@
           </p>
           <figure>
             <img
-              src="public/img/Baseline Model pipeline.jpg"
+              src="public/img/Model pipeline.jpg"
               alt="img of baseline architecture"
+              class="fitImgToContainer smallImg"
             />
             <figcaption>Architecture of the Model</figcaption>
           </figure>
@@ -210,7 +211,7 @@
           </figure>
         </div>
         <div class="section">
-          <h2 id="personDetection">Person Detection</h2>
+          <h3 id="personDetection">Person Detection</h3>
           <p>
             We found a number of helpful data elements in our data source such
             as the coordinates of the box that surround the portion of the image
@@ -227,7 +228,7 @@
             <img
               src="public/img/complete_img.png"
               alt="source image"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>An example image from the data source</figcaption>
           </figure>
@@ -236,7 +237,7 @@
             <img
               src="public/img/Bounding Box demo.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>
               The example image with a bounding box around it
@@ -244,7 +245,7 @@
           </figure>
         </div>
         <div class="section">
-          <h2 id="faceDetection">Face Detection</h2>
+          <h3 id="faceDetection">Face Detection</h3>
           <p>
             We use Haar features to detect faces in the images. With the
             bounding boxes for the person, described above, we can ensure we
@@ -267,10 +268,10 @@
             <img
               src="public/img/facial_detection_man.png"
               alt="source image"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>
-              Here is an example face from the dataset, with a clear face
+              Example of a single, clear face at a slight angle
             </figcaption>
           </figure>
 
@@ -278,53 +279,47 @@
             <img
               src="public/img/facial_detection_man_bounding_box.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
-            <figcaption>The example with the detected face</figcaption>
+            <figcaption>Face is properly detected</figcaption>
           </figure>
 
           <figure class="imgPair">
             <img
               src="public/img/child_umbrella.png"
               alt="source image"
-              class="fitImgToContainer"
+              class="smallImg"
             />
-            <figcaption>
-              Another example with a clear smiling face, this one is more
-              straight on
-            </figcaption>
+            <figcaption>A face that is more straight on</figcaption>
           </figure>
 
           <figure class="imgPair">
             <img
               src="public/img/child_umbrella_box.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
-            <figcaption>The example with the detected face</figcaption>
+            <figcaption>Proper bounding box around the face</figcaption>
           </figure>
 
           <figure class="imgPair">
             <img
               src="public/img/facial_detection_wedding.png"
               alt="source image"
-              class="fitImgToContainer"
+              class="smallImg"
             />
-            <figcaption>
-              Here is an example face from the dataset, multiple faces at
-              different angles
-            </figcaption>
+            <figcaption>Multiple faces at different angles</figcaption>
           </figure>
 
           <figure class="imgPair">
             <img
               src="public/img/facial_detection_wedding_box.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>
               The detected face is the face that's straight on. Angled faces
-              aren't processed
+              aren't found
             </figcaption>
           </figure>
 
@@ -332,7 +327,7 @@
             <img
               src="public/img/child_and_dog.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>
               This child's face is not detected due to the angle
@@ -343,7 +338,7 @@
             <img
               src="public/img/gaming_guys.png"
               alt="source image with box"
-              class="fitImgToContainer"
+              class="smallImg"
             />
             <figcaption>
               No faces are detected in this image because of the angle (person

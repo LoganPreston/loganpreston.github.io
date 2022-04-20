@@ -58,12 +58,12 @@ figure{
     padding: 10px;
 }
 
-.fitImgToContraint{
+.fitImgToContainer{
     width:100%
 }
 
 .smallImg {
-    width: 25%;
+    width: 50%;
 }
 
 .button-link{
