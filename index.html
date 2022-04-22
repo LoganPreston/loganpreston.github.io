@@ -148,16 +148,17 @@
         <div class="section">
           <h2 id="architecture">Architecture and Design</h2>
           <p>
-            The baseline model consists of 3 primary components which drive the
-            classification. The first component takes the region of the image
-            comprising the person whose feelings are to be estimated and
-            extracts its most relevant features. The second component takes as
-            input the entire image and extracts global features for providing
-            the necessary contextual support. Finally, the third component is a
-            fusion network that takes as input the image and body features and
-            estimates the discrete categories and the continuous dimensions. A
-            high level overview of the architecture can be seen below for the
-            body and scene split.
+            The baseline model consists of four primary components which drive
+            the classification. The first component takes the region of the
+            image comprising the person whose feelings are to be estimated and
+            extracts its most relevant features. The second component is similar
+            to the first but targeted towards the face only. The third component
+            takes as input the entire image and extracts global features for
+            providing the necessary contextual support. Finally, the fourth
+            component is a fusion network that takes as input the image, body
+            features, and face features and estimates the discrete categories
+            and the continuous dimensions. A high level overview of the
+            architecture can be seen below for the body and scene split.
           </p>
           <figure>
             <img
@@ -170,16 +171,16 @@
 
           <p>
             Given limited computational resources, we have resorted to using the
-            popular Resnet-18 architecture for the first two components. The
+            popular Resnet-18 architecture for the first three components. The
             feature extractors are initialized using pre-trained models from
-            large scale datas ets such as ImageNet and Places. ImageNet consists
-            of a range of objects (including people), so incorporating that will
-            improve our ability to learn the region of significance for a target
-            person in the image. Places is a data set specifically created for
-            high level visual understanding tasks such as recognizing scene
-            categories. Pre-training the image feature extraction model using
-            this data set ensures providing global (high level) contextual
-            support.
+            large scale datasets such as ImageNet and Places. ImageNet consists
+            of a range of objects (including people), so incorporating that
+            improved our ability to learn the region of significance for a
+            target person in the image. <em>Places</em> is a data set
+            specifically created for high level visual understanding tasks such
+            as recognizing scene categories. Pre-training the image feature
+            extraction model using this data set ensures providing global (high
+            level) contextual support.
           </p>
           <p>
             By the end of this project we expect to have a contribution amount
