@@ -350,6 +350,26 @@
             information alone.
           </p>
         </div>
+        <div>
+          <h2 id="discussion">Discussion and Difficulties</h2>
+          <p>
+            One major difficulty we had was face detection. Using Haar features
+            means we're limited in what we can detect, so we can only detect
+            faces that are straight on. Additionally, we originally were
+            detecting faces where there were no faces (e.g. in the grass in a
+            scene). We were able to get around this with a heuristic of only
+            accepting detected faces in the top half of the bounding box. This
+            does limit our faces in our data set by quite a lot, but still
+            resulted in good results.
+          </p>
+          <p>
+            We learned quite a lot about the difficulties of emotion detection,
+            processing data sets, state of the art of emotion detection, and
+            modifying and extending existing solutions. We see this as
+            potentially helpful for improving emotion detection in context,
+            where face information may not be enough.
+          </p>
+        </div>
         <div class="section">
           <h3>References</h3>
           <p>
