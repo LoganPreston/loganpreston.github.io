@@ -44,17 +44,11 @@
         <button onclick="scrollToId('stateOfTheArt')" class="navigation button">
           State of the Art
         </button>
-        <button
-          onclick="scrollToId('proposedSolution')"
-          class="navigation button"
-        >
-          Proposed Solution
+        <button onclick="scrollToId('solution')" class="navigation button">
+          Solution
         </button>
         <button onclick="scrollToId('architecture')" class="navigation button">
           Architecture
-        </button>
-        <button onclick="scrollToId('results')" class="navigation button">
-          Results
         </button>
         <button
           onclick="scrollToId('personDetection')"
@@ -64,6 +58,9 @@
         </button>
         <button onclick="scrollToId('faceDetection')" class="navigation button">
           Face Detection
+        </button>
+        <button onclick="scrollToId('results')" class="navigation button">
+          Results
         </button>
       </nav>
       <div class="info">
@@ -123,7 +120,7 @@
           </p>
         </div>
         <div class="section">
-          <h2 id="proposedSolution">Solution</h2>
+          <h2 id="solution">Solution</h2>
           <p>
             Our solution identifies people from the image, which is provided by
             a bounding box in the data set, and their faces, which is found by
@@ -194,9 +191,6 @@
             of how the actual task would be impacted by the difference in
             weights.
           </p>
-        </div>
-        <div class="section">
-          <h2 id="results">Results</h2>
           <p>
             The figures below are the training loss for the original model and
             our trained model, showing that our training closely matches the
@@ -251,15 +245,15 @@
             We use Haar features to detect faces in the images. With the
             bounding boxes for the person, described above, we can ensure we
             detect faces that are attached to a person. We also limit face
-            detection to the top half of the image, this is a heuristic we found
-            success with because the Haar features would sometimes identify a
-            face in the grass within a bounding box. Using this heuristic, we
-            removed a lot of false positives. With the faces separated out, we
-            created another stream in the architecture to process them in
-            addition to the pose and scene information. We fuse the three
-            streams together and are able to get the weights out for each
-            contribution and can calculate a naive percentage contribution for
-            each component.
+            detection to the top half of the bounding box. This is a heuristic
+            we found success with because the Haar features would sometimes
+            identify a face in the grass within a bounding box. Using this
+            heuristic, we removed a lot of false positives. With the faces
+            separated out, we created another stream in the architecture to
+            process them in addition to the pose and scene information. We fuse
+            the three streams together and are able to get the weights out for
+            each contribution and can calculate a naive percentage contribution
+            for each component.
           </p>
           <p>
             Here are some images to demonstrate success and difficulties with
@@ -347,6 +341,14 @@
               right)
             </figcaption>
           </figure>
+        </div>
+        <div class="section">
+          <h2 id="results">Results</h2>
+          <p>
+            By including face information in the model, we improved the
+            precision from 0.81 to 0.89, compared to the body and scene
+            information alone.
+          </p>
         </div>
         <div class="section">
           <h3>References</h3>
