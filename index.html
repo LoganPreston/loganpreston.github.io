@@ -94,352 +94,344 @@
           Discussion
         </button>
       </nav>
-      <div class="info">
-        <div class="section">
-          <h2 id="introduction">Introduction</h2>
-          <p>
-            The motivation for this project is to investigate approaches for
-            emotion detection and recognition. This builds on existing work of
-            facial recognition and tracking to predict what the user is likely
-            feeling based based on image-specific context. Existing work often
-            looks to face expressions, body language, and scene context. These
-            factors combined with individual variation in how people express
-            emotion makes this a challenging but useful problem to solve.
-            Specifically, there is social value in having a good solution to the
-            emotion recognition problem. The use of AI-infused systems is
-            growing in daily life and generally is expected to continue that
-            trend. Human AI interaction guidelines state that AI infused systems
-            should have "socially appropriate behaviors" [2] or "match relevant
-            social norms" [1], showing that being aware of social expectations
-            is helpful. Detecting user emotions can inform the AI system on
-            appropriate social expectations and also potentially detect
-            emotional anomalies. This could be used to make artificial
-            intelligence applications more socially aware, friendly, or provide
-            better support to humans. For example, identifying if a user is
-            frustrated may prompt the system to check if the user has a
-            question, provide supportive reminders, or reduce the amount of
-            notifications it sends to the user. In general, we expect
-            identifying emotions accurately will enhance interactions between AI
-            infused systems and their users.
-          </p>
-        </div>
-        <div class="section">
-          <h2 id="stateOfTheArt">State of the Art</h2>
-          <p>
-            This problem is especially thought-provoking because we already know
-            computers can identify faces, track objects paths, and other related
-            tasks. However, thework on emotion detection is not as
-            well-established. Classical emotion recognition techniques take a
-            more localized approach by simply focusing on the prominent facial
-            features. These techniques have been now bettered, if not matched,
-            by deep learning algorithms such as CNNs or LSTMs [3]. Thus, prior
-            work reviews emotions by looking at the faces alone rather than
-            considering body language and scene context. Some work adds in
-            context from the surrounding the scene [5] but efforts in this area
-            seem minimal and don't focus on quantifying the potential
-            improvement of considering scene context vs just faces. We are
-            interested in seeing how important the overall scene context is for
-            the accuracy of the model or if the face or body language provides
-            the vast majority ofthe data needed for accurate classification.
-            Apart from the further exploration by those who initially included
-            the scene for analysis [4], another method adopted by researchers
-            involved masking the face from the image and treating facial
-            features and the scene separately and adopting ensemble learning
-            techniques for their prediction [6]. These findings act as a
-            starting point for a more nuanced technique which can be developed
-            and researched further.
-          </p>
-        </div>
-        <div class="section">
-          <h2 id="solution">Solution</h2>
-          <p>
-            Our solution identifies people from the image, which is provided by
-            a bounding box in the data set, and their faces, which is found by
-            utilizing Haar features. After the humans in each image are
-            identified, we can look to them for potential clues into the
-            emotions using their faces and body language. We investigate the
-            impact of the body, the scene, and the face on the determination of
-            the emotion from the model. This will identify the impact of the
-            scene information and determine how valuable of information it is to
-            analyze compared to the individuals in a scene. To train our model,
-            we used the Emotic dataset. The dataset contains images of people in
-            real environments and each person is appropriately annotated with
-            their emotions. The dataset offers both a discrete analysis using 26
-            distinct emotion categories as well as a continuous dataset that
-            seeks to quantify each emotion into three dimensions, namely
-            valence, arousal, and dominance [4]. We did have issues with getting
-            faces from many of the images, difficulties for this are described
-            below. We use a Convolutional Neural Network to accomplish our
-            classification, described in Architecture below.
-          </p>
-        </div>
-        <div class="section">
-          <h2 id="architecture">Architecture and Design</h2>
-          <p>
-            The baseline model consists of four primary components which drive
-            the classification. The first component takes the region of the
-            image comprising the person whose feelings are to be estimated and
-            extracts its most relevant features. The second component is similar
-            to the first but targeted towards the face only. The third component
-            takes as input the entire image and extracts global features for
-            providing the necessary contextual support. Finally, the fourth
-            component is a fusion network that takes as input the image, body
-            features, and face features and estimates the discrete categories
-            and the continuous dimensions. A high level overview of the
-            architecture can be seen below for the body and scene split.
-          </p>
-          <figure>
-            <img
-              src="public/img/Model pipeline.jpg"
-              alt="img of baseline architecture"
-              class="fitImgToContainer smallImg"
-            />
-            <figcaption>Architecture of the Model</figcaption>
-          </figure>
-
-          <p>
-            Given limited computational resources, we have resorted to using the
-            popular Resnet-18 architecture for the first three components. The
-            feature extractors are initialized using pre-trained models from
-            large scale datasets such as ImageNet and Places. ImageNet consists
-            of a range of objects (including people), so incorporating that
-            improved our ability to learn the region of significance for a
-            target person in the image. <em>Places</em> is a data set
-            specifically created for high level visual understanding tasks such
-            as recognizing scene categories. Pre-training the image feature
-            extraction model using this data set ensures providing global (high
-            level) contextual support.
-          </p>
-          <p>
-            By the end of this project we expect to have a contribution amount
-            for the scene, the body, and the face based on the weights for each
-            component. Calculating the contribution by basing it on the weights
-            is a naive approach, but we expect to see some trend, and may update
-            this in the final proposal if we identify a less naive approach. We
-            will also consider metrics as part of our train / test split which
-            quantify the classification error (in the discrete case) or
-            mean-squared-error (in the continuous case) to gain an understanding
-            of how the actual task would be impacted by the difference in
-            weights.
-          </p>
-          <p>
-            The figures below are the training loss for the original model and
-            our trained model, showing that our training closely matches the
-            original implementation.
-          </p>
-          <figure class="imgPair">
-            <img src="public/img/original result.png" alt="Original Data" />
-            <figcaption>Original Data</figcaption>
-          </figure>
-          <figure class="imgPair">
-            <img src="public/img/Replicated Results.png" alt="Our Data" />
-            <figcaption>Our Data</figcaption>
-          </figure>
-        </div>
-        <div class="section">
-          <h3 id="personDetection">Person Detection</h3>
-          <p>
-            We found a number of helpful data elements in our data source such
-            as the coordinates of the box that surround the portion of the image
-            that's being evaluated. An example of an image can be seen below,
-            followed by the same image with the bounding box. This way we can
-            identify which person is matched to each emotion in the data set for
-            the model. This bounding box annotations mean we don't implement a
-            custom computer vision algorithm to separate out the individual in
-            the image at this point. We only feed the separate parts of the
-            image to the machine learning algorithms. We have added more
-            computer vision functionality to identify faces, described below.
-          </p>
-          <figure class="imgPair">
-            <img
-              src="public/img/complete_img.png"
-              alt="source image"
-              class="smallImg"
-            />
-            <figcaption>An example image from the data source</figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/Bounding Box demo.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>
-              The example image with a bounding box around it
-            </figcaption>
-          </figure>
-        </div>
-        <div class="section">
-          <h3 id="faceDetection">Face Detection</h3>
-          <p>
-            We use Haar features to detect faces in the images. With the
-            bounding boxes for the person, described above, we can ensure we
-            detect faces that are attached to a person. We also limit face
-            detection to the top half of the bounding box. This is a heuristic
-            we found success with because the Haar features would sometimes
-            identify a face in the grass within a bounding box. Using this
-            heuristic, we removed a lot of false positives. With the faces
-            separated out, we created another stream in the architecture to
-            process them in addition to the pose and scene information. We fuse
-            the three streams together and are able to get the weights out for
-            each contribution and can calculate a naive percentage contribution
-            for each component.
-          </p>
-          <p>
-            Here are some images to demonstrate success and difficulties with
-            face detection
-          </p>
-          <figure class="imgPair">
-            <img
-              src="public/img/facial_detection_man.png"
-              alt="source image"
-              class="smallImg"
-            />
-            <figcaption>
-              Example of a single, clear face at a slight angle
-            </figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/facial_detection_man_bounding_box.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>Face is properly detected</figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/child_umbrella.png"
-              alt="source image"
-              class="smallImg"
-            />
-            <figcaption>A face that is more straight on</figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/child_umbrella_box.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>Proper bounding box around the face</figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/facial_detection_wedding.png"
-              alt="source image"
-              class="smallImg"
-            />
-            <figcaption>Multiple faces at different angles</figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/facial_detection_wedding_box.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>
-              The detected face is the face that's straight on. Angled faces
-              aren't found
-            </figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/child_and_dog.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>
-              This child's face is not detected due to the angle
-            </figcaption>
-          </figure>
-
-          <figure class="imgPair">
-            <img
-              src="public/img/gaming_guys.png"
-              alt="source image with box"
-              class="smallImg"
-            />
-            <figcaption>
-              No faces are detected in this image because of the angle (person
-              on the left) and partial covering of the face (person on the
-              right)
-            </figcaption>
-          </figure>
-        </div>
-        <div class="section">
-          <h2 id="results">Results</h2>
-          <p>
-            By including face information in the model, we improved the
-            precision from 0.81 to 0.89, compared to the body and scene
-            information alone.
-          </p>
-        </div>
-        <div class="section">
-          <h2 id="discussion">Discussion and Difficulties</h2>
-          <p>
-            One major difficulty we had was face detection. Using Haar features
-            means we're limited in what we can detect, so we can only detect
-            faces that are straight on. Additionally, we originally were
-            detecting faces where there were no faces (e.g. in the grass in a
-            scene). We were able to get around this with a heuristic of only
-            accepting detected faces in the top half of the bounding box. This
-            does limit our faces in our data set by quite a lot, but still
-            resulted in good results.
-          </p>
-          <p>
-            We learned quite a lot about the difficulties of emotion detection,
-            processing data sets, state of the art of emotion detection, and
-            modifying and extending existing solutions. We see this as
-            potentially helpful for improving emotion detection in context,
-            where face information may not be enough.
-          </p>
-        </div>
-        <div class="section">
-          <h3>References</h3>
-          <p>
-            [1] S. Amershi, D. Weld, M. Vorvoreanu, A. Fourney,B. Nushi, P.
-            Collisson, J. Suh, S. Iqbal, P. Bennett,K. Inkpen, J. Teevan, R.
-            Kikin-Gil, and E. Horvitz. Guidelines for human-ai interaction. In
-            CHI 2019.ACM, May 2019. CHI 2019 Honorable Mention Award.
-          </p>
-          <p>
-            [2] E. Horvitz. Principles of mixed-initiative user interfaces. In
-            Proceedings of CHI '99, ACM SIG CHI Conference on Human Factors in
-            Computing Sys-tems, Pittsburgh, PA, ACM Press., pages 159-166,May
-            1999.
-          </p>
-          <p>
-            [3] B. C. Ko. A brief review of facial emotion recogni-tion based on
-            visual information. volume 18, 2018.
-          </p>
-          <p>
-            [4] R. Kosti, J. Alvarez, A. Recasens, and A. Lapedriza.Context
-            based emotion recognition using emotic dataset. IEEE Transactions on
-            Pattern Analysis andMachine Intelligence, 2019.
-          </p>
-          <p>
-            [5] R. Kosti, J. M. Alvarez, A. Recasens, andA. Lapedriza. Emotion
-            recognition in context. In The IEEE Conference on Computer Vision
-            and Pat-tern Recognition (CVPR), 2017.
-          </p>
-          <p>
-            [6] J. Lee, S. Kim, S. Kim, J. Park, and K. Sohn.Context-aware
-            emotion recognition networks. In Proceedings of the IEEE/CVF
-            International Confer-ence on Computer Vision (ICCV), October 2019.
-          </p>
-        </div>
-      </div>
-
-      <footer>
-        <script src="public/js/index.js" async defer></script>
-      </footer>
     </div>
+    <div class="info">
+      <div class="section">
+        <h2 id="introduction">Introduction</h2>
+        <p>
+          The motivation for this project is to investigate approaches for
+          emotion detection and recognition. This builds on existing work of
+          facial recognition and tracking to predict what the user is likely
+          feeling based based on image-specific context. Existing work often
+          looks to face expressions, body language, and scene context. These
+          factors combined with individual variation in how people express
+          emotion makes this a challenging but useful problem to solve.
+          Specifically, there is social value in having a good solution to the
+          emotion recognition problem. The use of AI-infused systems is growing
+          in daily life and generally is expected to continue that trend. Human
+          AI interaction guidelines state that AI infused systems should have
+          "socially appropriate behaviors" [2] or "match relevant social norms"
+          [1], showing that being aware of social expectations is helpful.
+          Detecting user emotions can inform the AI system on appropriate social
+          expectations and also potentially detect emotional anomalies. This
+          could be used to make artificial intelligence applications more
+          socially aware, friendly, or provide better support to humans. For
+          example, identifying if a user is frustrated may prompt the system to
+          check if the user has a question, provide supportive reminders, or
+          reduce the amount of notifications it sends to the user. In general,
+          we expect identifying emotions accurately will enhance interactions
+          between AI infused systems and their users.
+        </p>
+      </div>
+      <div class="section">
+        <h2 id="stateOfTheArt">State of the Art</h2>
+        <p>
+          This problem is especially thought-provoking because we already know
+          computers can identify faces, track objects paths, and other related
+          tasks. However, thework on emotion detection is not as
+          well-established. Classical emotion recognition techniques take a more
+          localized approach by simply focusing on the prominent facial
+          features. These techniques have been now bettered, if not matched, by
+          deep learning algorithms such as CNNs or LSTMs [3]. Thus, prior work
+          reviews emotions by looking at the faces alone rather than considering
+          body language and scene context. Some work adds in context from the
+          surrounding the scene [5] but efforts in this area seem minimal and
+          don't focus on quantifying the potential improvement of considering
+          scene context vs just faces. We are interested in seeing how important
+          the overall scene context is for the accuracy of the model or if the
+          face or body language provides the vast majority ofthe data needed for
+          accurate classification. Apart from the further exploration by those
+          who initially included the scene for analysis [4], another method
+          adopted by researchers involved masking the face from the image and
+          treating facial features and the scene separately and adopting
+          ensemble learning techniques for their prediction [6]. These findings
+          act as a starting point for a more nuanced technique which can be
+          developed and researched further.
+        </p>
+      </div>
+      <div class="section">
+        <h2 id="solution">Solution</h2>
+        <p>
+          Our solution identifies people from the image, which is provided by a
+          bounding box in the data set, and their faces, which is found by
+          utilizing Haar features. After the humans in each image are
+          identified, we can look to them for potential clues into the emotions
+          using their faces and body language. We investigate the impact of the
+          body, the scene, and the face on the determination of the emotion from
+          the model. This will identify the impact of the scene information and
+          determine how valuable of information it is to analyze compared to the
+          individuals in a scene. To train our model, we used the Emotic
+          dataset. The dataset contains images of people in real environments
+          and each person is appropriately annotated with their emotions. The
+          dataset offers both a discrete analysis using 26 distinct emotion
+          categories as well as a continuous dataset that seeks to quantify each
+          emotion into three dimensions, namely valence, arousal, and dominance
+          [4]. We did have issues with getting faces from many of the images,
+          difficulties for this are described below. We use a Convolutional
+          Neural Network to accomplish our classification, described in
+          Architecture below.
+        </p>
+      </div>
+      <div class="section">
+        <h2 id="architecture">Architecture and Design</h2>
+        <p>
+          The baseline model consists of four primary components which drive the
+          classification. The first component takes the region of the image
+          comprising the person whose feelings are to be estimated and extracts
+          its most relevant features. The second component is similar to the
+          first but targeted towards the face only. The third component takes as
+          input the entire image and extracts global features for providing the
+          necessary contextual support. Finally, the fourth component is a
+          fusion network that takes as input the image, body features, and face
+          features and estimates the discrete categories and the continuous
+          dimensions. A high level overview of the architecture can be seen
+          below for the body and scene split.
+        </p>
+        <figure>
+          <img
+            src="public/img/Model pipeline.jpg"
+            alt="img of baseline architecture"
+            class="fitImgToContainer smallImg"
+          />
+          <figcaption>Architecture of the Model</figcaption>
+        </figure>
+
+        <p>
+          Given limited computational resources, we have resorted to using the
+          popular Resnet-18 architecture for the first three components. The
+          feature extractors are initialized using pre-trained models from large
+          scale datasets such as ImageNet and Places. ImageNet consists of a
+          range of objects (including people), so incorporating that improved
+          our ability to learn the region of significance for a target person in
+          the image. <em>Places</em> is a data set specifically created for high
+          level visual understanding tasks such as recognizing scene categories.
+          Pre-training the image feature extraction model using this data set
+          ensures providing global (high level) contextual support.
+        </p>
+        <p>
+          By the end of this project we expect to have a contribution amount for
+          the scene, the body, and the face based on the weights for each
+          component. Calculating the contribution by basing it on the weights is
+          a naive approach, but we expect to see some trend, and may update this
+          in the final proposal if we identify a less naive approach. We will
+          also consider metrics as part of our train / test split which quantify
+          the classification error (in the discrete case) or mean-squared-error
+          (in the continuous case) to gain an understanding of how the actual
+          task would be impacted by the difference in weights.
+        </p>
+        <p>
+          The figures below are the training loss for the original model and our
+          trained model, showing that our training closely matches the original
+          implementation.
+        </p>
+        <figure class="imgPair">
+          <img src="public/img/original result.png" alt="Original Data" />
+          <figcaption>Original Data</figcaption>
+        </figure>
+        <figure class="imgPair">
+          <img src="public/img/Replicated Results.png" alt="Our Data" />
+          <figcaption>Our Data</figcaption>
+        </figure>
+      </div>
+      <div class="section">
+        <h3 id="personDetection">Person Detection</h3>
+        <p>
+          We found a number of helpful data elements in our data source such as
+          the coordinates of the box that surround the portion of the image
+          that's being evaluated. An example of an image can be seen below,
+          followed by the same image with the bounding box. This way we can
+          identify which person is matched to each emotion in the data set for
+          the model. This bounding box annotations mean we don't implement a
+          custom computer vision algorithm to separate out the individual in the
+          image at this point. We only feed the separate parts of the image to
+          the machine learning algorithms. We have added more computer vision
+          functionality to identify faces, described below.
+        </p>
+        <figure class="imgPair">
+          <img
+            src="public/img/complete_img.png"
+            alt="source image"
+            class="smallImg"
+          />
+          <figcaption>An example image from the data source</figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/Bounding Box demo.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>
+            The example image with a bounding box around it
+          </figcaption>
+        </figure>
+      </div>
+      <div class="section">
+        <h3 id="faceDetection">Face Detection</h3>
+        <p>
+          We use Haar features to detect faces in the images. With the bounding
+          boxes for the person, described above, we can ensure we detect faces
+          that are attached to a person. We also limit face detection to the top
+          half of the bounding box. This is a heuristic we found success with
+          because the Haar features would sometimes identify a face in the grass
+          within a bounding box. Using this heuristic, we removed a lot of false
+          positives. With the faces separated out, we created another stream in
+          the architecture to process them in addition to the pose and scene
+          information. We fuse the three streams together and are able to get
+          the weights out for each contribution and can calculate a naive
+          percentage contribution for each component.
+        </p>
+        <p>
+          Here are some images to demonstrate success and difficulties with face
+          detection
+        </p>
+        <figure class="imgPair">
+          <img
+            src="public/img/facial_detection_man.png"
+            alt="source image"
+            class="smallImg"
+          />
+          <figcaption>
+            Example of a single, clear face at a slight angle
+          </figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/facial_detection_man_bounding_box.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>Face is properly detected</figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/child_umbrella.png"
+            alt="source image"
+            class="smallImg"
+          />
+          <figcaption>A face that is more straight on</figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/child_umbrella_box.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>Proper bounding box around the face</figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/facial_detection_wedding.png"
+            alt="source image"
+            class="smallImg"
+          />
+          <figcaption>Multiple faces at different angles</figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/facial_detection_wedding_box.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>
+            The detected face is the face that's straight on. Angled faces
+            aren't found
+          </figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/child_and_dog.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>
+            This child's face is not detected due to the angle
+          </figcaption>
+        </figure>
+
+        <figure class="imgPair">
+          <img
+            src="public/img/gaming_guys.png"
+            alt="source image with box"
+            class="smallImg"
+          />
+          <figcaption>
+            No faces are detected in this image because of the angle (person on
+            the left) and partial covering of the face (person on the right)
+          </figcaption>
+        </figure>
+      </div>
+      <div class="section">
+        <h2 id="results">Results</h2>
+        <p>
+          By including face information in the model, we improved the precision
+          from 0.81 to 0.89, compared to the body and scene information alone.
+        </p>
+      </div>
+      <div class="section">
+        <h2 id="discussion">Discussion and Difficulties</h2>
+        <p>
+          One major difficulty we had was face detection. Using Haar features
+          means we're limited in what we can detect, so we can only detect faces
+          that are straight on. Additionally, we originally were detecting faces
+          where there were no faces (e.g. in the grass in a scene). We were able
+          to get around this with a heuristic of only accepting detected faces
+          in the top half of the bounding box. This does limit our faces in our
+          data set by quite a lot, but still resulted in good results.
+        </p>
+        <p>
+          We learned quite a lot about the difficulties of emotion detection,
+          processing data sets, state of the art of emotion detection, and
+          modifying and extending existing solutions. We see this as potentially
+          helpful for improving emotion detection in context, where face
+          information may not be enough.
+        </p>
+      </div>
+      <div class="section">
+        <h3>References</h3>
+        <p>
+          [1] S. Amershi, D. Weld, M. Vorvoreanu, A. Fourney,B. Nushi, P.
+          Collisson, J. Suh, S. Iqbal, P. Bennett,K. Inkpen, J. Teevan, R.
+          Kikin-Gil, and E. Horvitz. Guidelines for human-ai interaction. In CHI
+          2019.ACM, May 2019. CHI 2019 Honorable Mention Award.
+        </p>
+        <p>
+          [2] E. Horvitz. Principles of mixed-initiative user interfaces. In
+          Proceedings of CHI '99, ACM SIG CHI Conference on Human Factors in
+          Computing Sys-tems, Pittsburgh, PA, ACM Press., pages 159-166,May
+          1999.
+        </p>
+        <p>
+          [3] B. C. Ko. A brief review of facial emotion recogni-tion based on
+          visual information. volume 18, 2018.
+        </p>
+        <p>
+          [4] R. Kosti, J. Alvarez, A. Recasens, and A. Lapedriza.Context based
+          emotion recognition using emotic dataset. IEEE Transactions on Pattern
+          Analysis andMachine Intelligence, 2019.
+        </p>
+        <p>
+          [5] R. Kosti, J. M. Alvarez, A. Recasens, andA. Lapedriza. Emotion
+          recognition in context. In The IEEE Conference on Computer Vision and
+          Pat-tern Recognition (CVPR), 2017.
+        </p>
+        <p>
+          [6] J. Lee, S. Kim, S. Kim, J. Park, and K. Sohn.Context-aware emotion
+          recognition networks. In Proceedings of the IEEE/CVF International
+          Confer-ence on Computer Vision (ICCV), October 2019.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <script src="public/js/index.js" async defer></script>
+    </footer>
   </body>
 </html>
