@@ -5,6 +5,12 @@
 
 @media only screen and (max-width: 479px) {
     .mobile-hide{ display: none !important; }
+    .smallImg{ width:100% }
+    .imgPair {
+        display: inline-block;
+        width: 75%;
+        padding: 5px;
+    }
  }
 
 html {
