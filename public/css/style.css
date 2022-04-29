@@ -76,7 +76,7 @@ figure{
     width: 90%;
 }
 
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 650px) { /*prev,479px*/
     .mobile-hide{ display: none !important; }
     .smallImg{ width:100% }
     .imgPair {
@@ -84,4 +84,5 @@ figure{
         width: 75%;
         padding: 5px;
     }
+    .btn-large{ width: 25%;}
  }
