@@ -175,7 +175,7 @@
       <div class="section">
         <h2 id="architecture">Architecture and Design</h2>
         <p>
-          The baseline model consists of four primary components which drive the
+          Our model consists of four primary components which drive the
           classification. The first component takes the region of the image
           comprising the person whose feelings are to be estimated and extracts
           its most relevant features. The second component is similar to the
@@ -195,29 +195,33 @@
           />
           <figcaption>Architecture of the Model</figcaption>
         </figure>
-
         <p>
           Given limited computational resources, we have resorted to using the
           popular Resnet-18 architecture for the first three components. The
           feature extractors are initialized using pre-trained models from large
-          scale datasets such as ImageNet and Places. ImageNet consists of a
-          range of objects (including people), so incorporating that improved
-          our ability to learn the region of significance for a target person in
-          the image. <em>Places</em> is a data set specifically created for high
-          level visual understanding tasks such as recognizing scene categories.
-          Pre-training the image feature extraction model using this data set
-          ensures providing global (high level) contextual support.
+          scale datasets such as <em>ImageNet</em> and <em>Places</em>.
+          <em>ImageNet</em> consists of a range of objects (including people),
+          so incorporating that improved our ability to learn the region of
+          significance for a target person in the image. <em>Places</em> is a
+          data set specifically created for high level visual understanding
+          tasks such as recognizing scene categories. Pre-training the image
+          feature extraction model using this data set ensures providing global
+          (high level) contextual support.
         </p>
         <p>
-          By the end of this project we expect to have a contribution amount for
-          the scene, the body, and the face based on the weights for each
-          component. Calculating the contribution by basing it on the weights is
-          a naive approach, but we expect to see some trend, and may update this
-          in the final proposal if we identify a less naive approach. We will
-          also consider metrics as part of our train / test split which quantify
-          the classification error (in the discrete case) or mean-squared-error
-          (in the continuous case) to gain an understanding of how the actual
-          task would be impacted by the difference in weights.
+          We have calculated the contribution of each component based on the
+          average of the weights for a component, then dividing it by the sum of
+          those averages. Calculating the contribution by basing it on the
+          weights is a naive approach, but we see it as a simple way to
+          summarize hundreds of different weights. We also report on the
+          precision of the model to quantify the classification error (in the
+          discrete case) to gain an understanding of how the actual task would
+          be impacted by the difference in weights.
+          <!--We will also consider
+          metrics as part of our train / test split which quantify the
+          classification error (in the discrete case) or mean-squared-error (in
+          the continuous case) to gain an understanding of how the actual task
+          would be impacted by the difference in weights.-->
         </p>
         <p>
           The figures below are the training loss for the original model and our
@@ -283,12 +287,13 @@
           that are attached to a person. We also limit face detection to the top
           half of the bounding box. This is a heuristic we found success with
           because the Haar features would sometimes identify a face in the grass
-          within a bounding box. Using this heuristic, we removed a lot of false
-          positives. With the faces separated out, we created another stream in
-          the architecture to process them in addition to the pose and scene
-          information. We fuse the three streams together and are able to get
-          the weights out for each contribution and can calculate a naive
-          percentage contribution for each component.
+          within a bounding box. Using this heuristic, we removed many false
+          positives, but also disqualified many images from our data set, so our
+          data set is much smaller than prior work. With the faces separated
+          out, we created another stream in the architecture to process them in
+          addition to the pose and scene information. We fuse the three streams
+          together and are able to get the weights out for each contribution and
+          can calculate a naive percentage contribution for each component.
         </p>
         <p>
           Here are some images to demonstrate success and difficulties with face
@@ -379,8 +384,12 @@
       <div class="section">
         <h2 id="results">Results</h2>
         <p>
-          By including face information in the model, we improved the precision
-          from 0.81 to 0.89, compared to the body and scene information alone.
+          The original model had a precision of 0.81. By including face
+          information in the model, we improved the precision to 0.89.
+        </p>
+        <p>
+          The original model also showed a split of 47.8% to 52.2% for the scene
+          and the body respectively.
         </p>
       </div>
       <div class="section">
