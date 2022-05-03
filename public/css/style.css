@@ -1,6 +1,7 @@
 :root{
     --accentColor: #2C3333; 
     --backgroundColor: #EEEEEE;
+    --darkerBackgroundColor: #CCCCCC;
 }
 
 html {
@@ -47,6 +48,23 @@ nav {
 figure{
     text-align: center;
 }
+
+table {
+    /*font-family: arial, sans-serif;*/
+    font-size: .9em;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid var(--darkerBackgroundColor);
+    text-align: left;
+    padding: .5em;
+  }
+  
+  tr:nth-child(even) {
+    background-color: var(--darkerBackgroundColor);
+  }
 
 .btn-large{
     width: 12%;

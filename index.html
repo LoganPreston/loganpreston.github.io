@@ -384,16 +384,77 @@
       <div class="section">
         <h2 id="results">Results</h2>
         <p>
-          The original model had a precision of 0.81. By including face
-          information in the model, we improved the precision to 0.89.
+          Below you can find the mean average error and precision for validation
+          and testing data sets
         </p>
-        <p>
-          The original model also showed a split of 47.8% to 52.2% for the scene
-          and the body respectively.
-        </p>
+        <table>
+          <tr>
+            <th>Components</th>
+            <th>Validation Mean Average Error</th>
+            <th>Testing Mean Average Error</th>
+            <th>Validation Mean Average Precision</th>
+            <th>Testing Mean Average Precision</th>
+          </tr>
+          <tr>
+            <td>Face, Body, Scene</td>
+            <td>0.9067</td>
+            <td>1.0597</td>
+            <td>0.3183</td>
+            <td>0.2111</td>
+          </tr>
+          <tr>
+            <td>Scene and Body (Baseline)</td>
+            <td>0.8108</td>
+            <td>0.9582</td>
+            <td>0.3415</td>
+            <td>0.2527</td>
+          </tr>
+          <tr>
+            <td>Scene and Face</td>
+            <td>0.8878</td>
+            <td>1.0332</td>
+            <td>0.3057</td>
+            <td>0.2156</td>
+          </tr>
+          <tr>
+            <td>Body and Face</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Face</td>
+            <td>0.8587</td>
+            <td>1.0183</td>
+            <td>0.2698</td>
+            <td>0.1862</td>
+          </tr>
+          <tr>
+            <td>Body</td>
+            <td>0.8570</td>
+            <td>0.9976</td>
+            <td>0.2802</td>
+            <td>0.1962</td>
+          </tr>
+          <tr>
+            <td>Scene</td>
+            <td>0.8547</td>
+            <td>1.0052</td>
+            <td>0.2572</td>
+            <td>0.1878</td>
+          </tr>
+        </table>
       </div>
       <div class="section">
         <h2 id="discussion">Discussion and Difficulties</h2>
+        <p>
+          From the results above, you can see that the face, body, and scene
+          information has the highest mean average error and the second highest
+          precision. Interestingly, the scene and the face alone get very
+          similar results, while the scene and body has higher precision and
+          lower error. Each of the components alone have the lowest precision
+        </p>
         <p>
           One major difficulty we had was face detection. Using Haar features
           means we're limited in what we can detect, so we can only detect faces
