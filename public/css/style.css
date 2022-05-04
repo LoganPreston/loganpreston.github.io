@@ -1,7 +1,8 @@
 :root{
-    --accentColor: #2C3333; 
-    --backgroundColor: #EEEEEE;
-    --darkerBackgroundColor: #CCCCCC;
+    --accentColor: #494949; 
+    --backgroundColor: #f7f7f7;
+    --darkerBackgroundColor: #dadfe1;
+    --buttonColor: #9b0000;
 }
 
 html {
@@ -18,7 +19,7 @@ body{
 }
 
 button {
-        background-color: var(--accentColor);
+        background-color: var(--buttonColor);
         border: none;
         color: var(--backgroundColor);
         padding: 10px 20px;
