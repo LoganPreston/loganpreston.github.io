@@ -56,15 +56,15 @@ table {
     width: 100%;
   }
   
-  td, th {
+td, th {
     border: 1px solid var(--darkerBackgroundColor);
     text-align: left;
     padding: .5em;
-  }
+}
   
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: var(--darkerBackgroundColor);
-  }
+}
 
 .btn-large{
     width: 12%;
@@ -78,6 +78,13 @@ table {
 
 .smallImg {
     width: 50%;
+    min-width: 200px;
+}
+
+.narrowCaption {
+    width: 25%;
+    min-width: 200px;
+    margin: auto;
 }
 
 .button-link{
