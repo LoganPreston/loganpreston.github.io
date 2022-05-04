@@ -282,19 +282,59 @@
       <div class="section">
         <h3 id="faceDetection">Face Detection</h3>
         <p>
-          We use Haar features to detect faces in the images. With the bounding
-          boxes for the person, described above, we can ensure we detect faces
-          that are attached to a person. We also limit face detection to the top
-          half of the bounding box. This is a heuristic we found success with
-          because the Haar features would sometimes identify a face in the grass
-          within a bounding box. Using this heuristic, we removed many false
-          positives, but also disqualified many images from our data set, so our
-          data set is much smaller than prior work. With the faces separated
-          out, we created another stream in the architecture to process them in
-          addition to the pose and scene information. We fuse the three streams
-          together and are able to get the weights out for each contribution and
-          can calculate a naive percentage contribution for each component.
+          In order to tag the faces, we implemented a Haar Cascade algorithm
+          using the openCV library. A Haar cascade is a generic algorithm that
+          can be used for object detection that is trained specifically to
+          identify objects of interest. We used a pre-trained model from OpenCV
+          for frontal face detection. Similar to the approach used for
+          convolutions, a sliding window is used on the training set for each
+          image. For each window, the classifier determines whether or not the
+          region contains a face. Using the pre-trained model from OpenCV
+          eliminated the need to train our own classifier and give it thousands
+          of positive and negative samples. A potential future extension would
+          be to manually train the model to better identify faces of various
+          orientations.
         </p>
+        <p>
+          Testing and validation of this algorithm yielded some notable results.
+          The classification was not perfect and for various hyper parameters,
+          it didn't always find all of the faces in the algorithm. We determined
+          that for cases where the orientation of the face wasn't facing
+          forward, the algorithm failed to consistently tag the image. The hit
+          rate for our frontal face cascade classifier was approximately 15%.
+          There were also cases where the Haar Cascade found faces where there
+          was no person. These cases were easier to filter out as we checked
+          whether or not the tagged area returned by the algorithm was in the
+          top half of the known region of a person tagged by the dataset. This
+          cut down our false positives to almost 0. More information on OpenCV
+          Haar cascades can be found
+          <a
+            href="https://github.com/opencv/opencv/tree/master/data/haarcascades"
+            >with this link</a
+          >.
+        </p>
+        <p>
+          With the faces separated out, we created another stream in the
+          architecture to process them in addition to the pose and scene
+          information. In the end, we fuse the three streams together and are
+          able to get the weights out for each contribution and can calculate a
+          naive percentage contribution for each component.
+        </p>
+        <figure>
+          <img
+            src="https://929687.smushcdn.com/2633864/wp-content/uploads/2014/10/sliding_window_example.gif?size=323x475&amp;lossy=1&amp;strip=1&amp;webp=1"
+            alt="gif of haar cascades"
+            width="200"
+            height="300"
+          />
+          <figcaption>
+            Example of a sliding window used with Haar cascades, more
+            information can be found
+            <a href="https://pyimagesearch.com/2021/04/12/opencv-haar-cascades/"
+              >here.</a
+            >
+          </figcaption>
+        </figure>
         <p>
           Here are some images to demonstrate success and difficulties with face
           detection
@@ -385,7 +425,8 @@
         <h2 id="results">Results</h2>
         <p>
           Below you can find the mean average error and precision for validation
-          and testing data sets
+          and testing data sets. All results come from training / testing /
+          validating on our reduced data set.
         </p>
         <table>
           <tr>
@@ -404,10 +445,10 @@
           </tr>
           <tr>
             <td>Scene and Body (Baseline)</td>
-            <td>0.8108</td>
-            <td>0.9582</td>
-            <td>0.3415</td>
-            <td>0.2527</td>
+            <td>0.8924</td>
+            <td>1.0381</td>
+            <td>0.3133</td>
+            <td>0.2102</td>
           </tr>
           <tr>
             <td>Scene and Face</td>
@@ -450,10 +491,10 @@
         <h2 id="discussion">Discussion and Difficulties</h2>
         <p>
           From the results above, you can see that the face, body, and scene
-          information has the highest mean average error and the second highest
+          information has the highest mean average error and the highest
           precision. Interestingly, the scene and the face alone get very
-          similar results, while the scene and body has higher precision and
-          lower error. Each of the components alone have the lowest precision
+          similar results. Unsurprisingly, each of the components alone have the
+          lowest precision.
         </p>
         <p>
           One major difficulty we had was face detection. Using Haar features
